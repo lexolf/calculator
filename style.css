@@ -1,0 +1,10 @@
+.container {
+    display: grid;
+    grid-template-rows: 8vw 32vw;
+}
+
+.numpad {
+    display: grid;
+    grid-template-columns: 8vw 8vw 8vw 8vw;
+    grid-template-rows: 8vw 8vw 8vw 8vw;
+}
