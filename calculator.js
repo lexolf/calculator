@@ -32,3 +32,26 @@ let operate = function(operator,a,b) {
             return 0
     }
 }
+
+let populate = function(text){
+    if(document.getElementById('field').textContent == '0' && text.match(/[1-9]/)){
+        document.getElementById('field').textContent = text;
+    } else {
+        document.getElementById('field').textContent += text;
+    }
+}
+
+let buttons = document.getElementsByClassName('button');
+
+for(var i = 0; i < buttons.length-1; i++){
+    (function() {
+        var text = buttons[i].textContent;
+        buttons[i].addEventListener("click", function() { populate(text)})
+    }());   
+}
+
+let reset = function() {
+    document.getElementById('field').textContent = '0';
+}
+
+document.getElementById('reset').addEventListener("click", function() { reset() })
