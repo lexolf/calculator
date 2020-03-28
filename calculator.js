@@ -1,3 +1,5 @@
+// Create basic mathematical operations
+
 let add = function(a,b) {
     return a+b
 }
@@ -18,6 +20,8 @@ let divide = function(a,b) {
     }
 }
 
+// Create function to execute math operations 
+
 let operate = function(operator,a,b) {
     switch(operator) {
         case '+':
@@ -33,13 +37,20 @@ let operate = function(operator,a,b) {
     }
 }
 
+// Function that updates input field upon user input
+
 let populate = function(text){
-    if(document.getElementById('field').textContent == '0' && text.match(/[1-9]/)){
-        document.getElementById('field').textContent = text;
+    var field = document.getElementById('field');
+    if(!text.match(/[0-9]/) && !field.textContent.slice(-1).match(/[0-9]/)){
+        field.textContent = field.textContent.slice(0,-1) + text;
+    } else if(field.textContent == '0' && text.match(/[1-9]/)){
+        field.textContent = text;
     } else {
-        document.getElementById('field').textContent += text;
+        field.textContent += text;
     }
 }
+
+// Make buttons on the page functional
 
 let buttons = document.getElementsByClassName('button');
 
@@ -49,6 +60,8 @@ for(var i = 0; i < buttons.length-1; i++){
         buttons[i].addEventListener("click", function() { populate(text)})
     }());   
 }
+
+// Make reset button functional
 
 let reset = function() {
     document.getElementById('field').textContent = '0';
