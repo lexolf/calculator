@@ -4,49 +4,64 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 98vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .calculator {
     display: grid;
-    grid-template-rows: 8vw 32vw;
-    background: linear-gradient(45deg, rgba(80,80,80,1) 0%, rgba(98,92,112,1) 50%, rgba(128,103,176,1) 100%);
-    border-radius: 0.5vw;
+    grid-template-rows: 6rem 30rem;
+    border-radius: 0.5rem;
     box-shadow: 0px 4px 10px 3px rgba(0,0,0,0.4);
-    padding: 1vw;
+    padding: 0.5rem;
 }
 
-.input {
+#input {
     font-weight: 800;
-    font-size: 3vw;
+    font-size: 1.5rem;
     position: relative;
-    background: rgba(128,103,176,1);
+    background: rgb(222, 222, 222);
     border-radius: 0.5vw;
-    border: 1px solid rgba(80,80,80,1);
-    margin: 0.25vw;
+    border: 1px solid rgba(200,200,200,1);
+    margin: 0.25rem;
 }
 
-.field {
+#field {
     text-align: right;
     position: absolute;
-    padding: 1vw;
+    padding: 1rem;
     bottom: 0;
     right: 0;
 }
 
 .numpad {
     display: grid;
-    grid-template-columns: 8vw 8vw 8vw 8vw;
-    grid-template-rows: 8vw 8vw 8vw 8vw;
+    grid-template-columns: 6rem 6rem 6rem 6rem;
+    grid-template-rows: 6rem 6rem 6rem 6rem 6rem;
     text-align: center;
     font-weight: 800;
-    font-size: 6vw;
+    font-size: 4rem;
 }
 
 .button {
-    border: 1px solid rgba(80,80,80,1);
-    border-radius: 0.5vw;
-    background: linear-gradient(135deg, rgba(80,80,80,1) 0%, rgba(98,92,112,1) 50%, rgba(128,103,176,1) 100%);
-    margin: 0.25vw;
+    border: 1px solid #cacaca;
+    border-radius: 1rem;
+    background: linear-gradient(to bottom, #fafafa 5%, #eaeaea 100%);
+    margin: 0.25rem;
+    cursor: pointer;
+}
+
+.button:hover {
+	background: linear-gradient(to bottom, #eaeaea 5%, #dadada 100%);
+	background-color:#f6f6f6;
+}
+
+.button:active {
+	position: relative;
+    top: 1px;
+}
+
+#reset {
+    display: inline;
+    grid-column: -5 / -1;
+    background: linear-gradient(to bottom, #ffdada 5%, #ffcaca 100%);
 }
