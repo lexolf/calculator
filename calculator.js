@@ -1,3 +1,7 @@
+// Create variable to perform operations on
+
+var query = [];
+
 // Create basic mathematical operations
 
 let add = function(a,b) {
@@ -37,15 +41,43 @@ let operate = function(operator,a,b) {
     }
 }
 
+// Check if operand is entered
+
+let isOperand = function(input){
+    if(input == '-' || input == '+' || input == '×' || input == '÷'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Function that updates input field upon user input
 
 let populate = function(text){
     var field = document.getElementById('field');
-    if(!text.match(/[0-9]/) && !field.textContent.slice(-1).match(/[0-9]/)){
-        field.textContent = field.textContent.slice(0,-1) + text;
-    } else if(field.textContent == '0' && text.match(/[1-9]/)){
-        field.textContent = text;
-    } else {
+    if(field.textContent === '' || field.textContent === '0'){
+        if(text.match(/[0-9]/)){
+            field.textContent = text;
+        } else if(text == '.'){
+            field.textContent += text;
+            document.getElementById('decimal').disabled = true;
+        } else if(isOperand(text)){
+            field.textContent = '';
+            document.getElementById('decimal').disabled = false;
+            query.push(0);
+            query.push(text);
+        } else if(text.match('=')){ 
+            preOperate(query);
+        }
+    } else if(isOperand(text)){
+        query.push(field.textContent);
+        query.push(text);
+        document.getElementById('decimal').disabled = false;
+        field.textContent = '';
+    } else if(text.match(/[0-9]/)){
+        field.textContent += text;
+    } else if(text == '.' && !document.getElementById('decimal').disabled){
+        document.getElementById('decimal').disabled = true;
         field.textContent += text;
     }
 }
