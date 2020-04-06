@@ -27,18 +27,43 @@ let divide = function(a,b) {
 // Create function to execute math operations 
 
 let operate = function(operator,a,b) {
+    a = Number(a);
+    b = Number(b);
     switch(operator) {
         case '+':
             return add(a,b);
         case '-':
             return subtract(a,b);
-        case '*':
+        case '×':
             return multiply(a,b);
-        case '/':
+        case '÷':
             return divide(a,b);
         default:
             return 0
     }
+}
+
+// Create functions that finds operators and performs operations onn actions around them
+
+let breakToOperate = function(query){
+    while(query.length > 1){
+        for(var i=0; i<query.length; i++){
+            if(query[i] == '×' || query[i] == '÷'){
+                query[i-1] = operate(query[i], query[i-1], query[i+1])
+                if(query[i-1] == divide(1,0)){
+                    return divide(1,0)
+                }
+                query.splice(i,i+1)
+            }
+        }
+        for(var i=0; i<query.length; i++){
+            if(query[i] == '+' || query[i] =='-'){
+                query[i-1] = operate(query[i], query[i-1], query[i+1])
+                query.splice(i,i+1)
+            }
+        }
+    }
+    return query[0]
 }
 
 // Check if operand is entered
@@ -53,32 +78,52 @@ let isOperand = function(input){
 
 // Function that updates input field upon user input
 
-let populate = function(text){
+let populate = function(input){
     var field = document.getElementById('field');
     if(field.textContent === '' || field.textContent === '0'){
-        if(text.match(/[0-9]/)){
-            field.textContent = text;
-        } else if(text == '.'){
-            field.textContent += text;
+        if(input.match(/[0-9]/)){
+            field.textContent = input;
+        } else if(input == '.'){
+            field.textContent += input;
             document.getElementById('decimal').disabled = true;
-        } else if(isOperand(text)){
-            field.textContent = '';
+        } else if(isOperand(input)){
             document.getElementById('decimal').disabled = false;
+            if(isOperand(query[query.length-1])){
+                if(field.textContent === '0'){
+                    query.push('0');
+                    query.push(input)
+                } else {query[query.length-1] = input;
+                }
+            } else if(query.length == 0){
+                query.push(0)
+                query.push(input)
+            } else {
+                query.push(input)
+            }
+            field.textContent = '';
+            console.log(query)
+        } else if(input == '=' || field.textContent == '0'){ 
             query.push(0);
-            query.push(text);
-        } else if(text.match('=')){ 
-            preOperate(query);
+            field.textContent = breakToOperate(query);
+            query = []
+        } else if(input == '='){
+            field.textContent = breakToOperate(query);
+            query = []
         }
-    } else if(isOperand(text)){
+    } else if(isOperand(input)){
         query.push(field.textContent);
-        query.push(text);
+        query.push(input);
         document.getElementById('decimal').disabled = false;
         field.textContent = '';
-    } else if(text.match(/[0-9]/)){
-        field.textContent += text;
-    } else if(text == '.' && !document.getElementById('decimal').disabled){
+    } else if(input.match(/[0-9]/)){
+        field.textContent += input;
+    } else if(input == '.' && !document.getElementById('decimal').disabled){
         document.getElementById('decimal').disabled = true;
-        field.textContent += text;
+        field.textContent += input;
+    } else if(input.match('=')){ 
+        query.push(field.textContent);
+        field.textContent = breakToOperate(query);
+        query = [];
     }
 }
 
@@ -88,8 +133,8 @@ let buttons = document.getElementsByClassName('button');
 
 for(var i = 0; i < buttons.length-1; i++){
     (function() {
-        var text = buttons[i].textContent;
-        buttons[i].addEventListener("click", function() { populate(text)})
+        var input = buttons[i].textContent;
+        buttons[i].addEventListener("click", function() { populate(input)})
     }());   
 }
 
@@ -97,6 +142,7 @@ for(var i = 0; i < buttons.length-1; i++){
 
 let reset = function() {
     document.getElementById('field').textContent = '0';
+    query = [];
 }
 
 document.getElementById('reset').addEventListener("click", function() { reset() })
