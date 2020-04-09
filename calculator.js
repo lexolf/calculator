@@ -76,6 +76,14 @@ let isOperand = function(input){
     }
 }
 
+// Create function that shows a history of your input
+let historyUpdate = function(input){
+    var historyField = document.getElementById('history');
+    if(isOperand(input) || input == '='){
+        historyField.textContent = query.join("");
+    }
+}
+
 // Function that updates input field upon user input
 
 let populate = function(input){
@@ -125,6 +133,7 @@ let populate = function(input){
         field.textContent = breakToOperate(query);
         query = [];
     }
+    historyUpdate(input);
 }
 
 // Make buttons on the page functional
@@ -143,6 +152,7 @@ for(var i = 0; i < buttons.length-1; i++){
 let reset = function() {
     document.getElementById('field').textContent = '0';
     query = [];
+    document.getElementById('history').textContent = '';
 }
 
 document.getElementById('reset').addEventListener("click", function() { reset() })

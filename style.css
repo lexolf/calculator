@@ -23,6 +23,19 @@
     border-radius: 0.5vw;
     border: 1px solid rgba(200,200,200,1);
     margin: 0.25rem;
+    overflow: hidden;
+}
+
+#history {
+    font-weight: 600;
+    font-size: 1.2rem;
+    position: absolute;
+    background: rgb(200,200,200);
+    text-align: left;
+    padding: 0.2rem;
+    min-height: 1.6rem;
+    overflow: hidden;
+    width: 100%;
 }
 
 #field {
